@@ -9,12 +9,8 @@
 		program2;
 
 	function main() {
-		var vertexShader = glUtils.getShader(gl, gl.VERTEX_SHADER, glUtils.SL.Shaders.v1.vertex),
-			fragmentShader = glUtils.getShader(gl, gl.FRAGMENT_SHADER, glUtils.SL.Shaders.v1.fragment);
-		program1 = glUtils.createProgram(gl, vertexShader, fragmentShader);
-
-		var vertexShaderNama = glUtils.getShader(gl, gl.VERTEX_SHADER, glUtils.SL.Shaders.v2.vertex),
-			fragmentShaderNama = glUtils.getShader(gl, gl.FRAGMENT_SHADER, glUtils.SL.Shaders.v2.fragment);
+		var vertexShaderNama = glUtils.getShader(gl, gl.VERTEX_SHADER, glUtils.SL.Shaders.v1.vertex),
+			fragmentShaderNama = glUtils.getShader(gl, gl.FRAGMENT_SHADER, glUtils.SL.Shaders.v1.fragment);
 		program2 = glUtils.createProgram(gl, vertexShaderNama, fragmentShaderNama);
 
 		gl.clearColor(0.0, 0.0, 0 + .0, 1.0);
@@ -54,106 +50,6 @@
 		near,
 		far
 	);
-
-//=======================================================Box=======================================================
-
-	var rotateRate = 0;
-	var sudut = [0, 0, 0];
-	var axis = 0;
-	var xAxis = 0;
-	var yAxis = 1;
-	var zAxis = 2;
-
-	var skala = 0;
-	var scalingRate = 0.005;
-	var dir = 1;
-	var minScale = 0;
-	var maxScale = 1.5;
-
-	var n = 0;
-	function InitBox(){
-		var cubeVertices = [
-			//depan
-			-0.5, 0.5, 0.5, 	1.0, 0.0, 0.0,
-			-0.5, -0.5, 0.5, 	1.0, 0.0, 0.0,
-
-			-0.5, -0.5, 0.5, 	1.0, 0.0, 0.0,
-			0.5, -0.5, 0.5, 	1.0, 0.0, 0.0,
-
-			0.5, -0.5, 0.5, 	1.0, 0.0, 0.0,
-			0.5, 0.5, 0.5, 		1.0, 0.0, 0.0,
-
-			0.5, 0.5, 0.5, 		1.0, 0.0, 0.0,
-			-0.5, 0.5, 0.5, 	1.0, 0.0, 0.0,
-
-
-			//kanan
-			0.5, 0.5, 0.5, 		0.0, 1.0, 0.0,
-			0.5, 0.5, -0.5, 	0.0, 1.0, 0.0,
-
-			0.5, -0.5, 0.5, 	0.0, 1.0, 0.0,
-			0.5, -0.5, -0.5, 	0.0, 1.0, 0.0,
-
-			//belakang
-			-0.5, 0.5, -0.5, 	0.0, 0.0, 1.0,
-			-0.5, -0.5, -0.5, 	0.0, 0.0, 1.0,
-
-			-0.5, -0.5, -0.5, 	0.0, 1.0, 0.0,
-			0.5, -0.5, -0.5, 	0.0, 1.0, 0.0,
-
-			0.5, -0.5, -0.5, 	0.0, 1.0, 0.0,
-			0.5, 0.5, -0.5, 	0.0, 1.0, 0.0,
-
-			0.5, 0.5, -0.5, 	0.0, 0.0, 1.0,
-			-0.5, 0.5, -0.5, 	0.0, 0.0, 1.0,
-
-			//kiri
-			-0.5, 0.5, 0.5, 	0.0, 0.0, 1.0,
-			-0.5, 0.5, -0.5, 	0.0, 0.0, 1.0,
-
-			-0.5, -0.5, 0.5, 	0.0, 0.0, 1.0,
-			-0.5, -0.5, -0.5, 	0.0, 0.0, 1.0,
-		];
-
-		var cubeVertexBuffer = gl.createBuffer();
-		gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexBuffer);
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(cubeVertices), gl.STATIC_DRAW);
-
-		var vPos = gl.getAttribLocation(program1, 'vPos');
-		var vColor = gl.getAttribLocation(program1, 'vColor');
-
-		gl.vertexAttribPointer(vPos, 3, gl.FLOAT, gl.FALSE, 6 * Float32Array.BYTES_PER_ELEMENT, 0);
-		gl.vertexAttribPointer(vColor, 3, gl.FLOAT, gl.FALSE, 6 * Float32Array.BYTES_PER_ELEMENT, 3 * Float32Array.BYTES_PER_ELEMENT);
-		var theta = gl.getUniformLocation(program1, 'theta');
-		var scale = gl.getUniformLocation(program1, 'scale');
-
-		n = cubeVertices.length / 6;
-
-		var projection = gl.getUniformLocation(program1, 'projection');
-		var modelView = gl.getUniformLocation(program1, 'modelView');
-
-		gl.enableVertexAttribArray(vPos);
-		gl.enableVertexAttribArray(vColor);
-		gl.uniformMatrix4fv(projection, false, pm);
-		gl.uniformMatrix4fv(modelView, false, mvm);
-
-		sudut[axis] += rotateRate;
-
-		if(skala <= minScale){
-			dir = 1;
-		}
-		else if(skala >= maxScale){
-			dir = -1;
-		}
-		skala = skala + (scalingRate * dir)
-
-		skala = 1; 
-		// radian = 0;
-		gl.uniform3fv(theta, sudut);
-		gl.uniform1f(scale, skala);
-	}
-
-//=================================================================================================================
 
 //=======================================================Huruf=======================================================
 
@@ -242,9 +138,9 @@
 		gl.clearColor(0.0, 0.0, 0 + .0, 1.0);
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-		gl.useProgram(program1);
-		InitBox();
-		gl.drawArrays(gl.LINES, 0, n);
+		// gl.useProgram(program1);
+		// InitBox();
+		// gl.drawArrays(gl.LINES, 0, n);
 
 		gl.useProgram(program2);
 		// InitHuruf();
