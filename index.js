@@ -397,7 +397,7 @@
 
     // Membuat mekanisme pembacaan gambar jadi tekstur
     function initTexture(callback, args) {
-      var imageSource = 'images/fusion.bmp';
+      var imageSource = 'images/fusion (2).bmp';
       var promise = new Promise(function(resolve, reject) {
         var image = new Image();
         if (!image) {
